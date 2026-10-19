@@ -1,0 +1,570 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OurDAO Event Schema",
+  "type": "object",
+  "description": "Machine-readable schema for all OurDAO contract events. Each key is an event topic symbol, and its value describes the expected payload structure.",
+  "version": "0.1.0",
+  "events": {
+    "init": {
+      "type": "object",
+      "properties": {
+        "admins": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "address"
+          }
+        },
+        "consensus_threshold": {
+          "type": "integer"
+        },
+        "membership_fee": {
+          "type": "integer"
+        },
+        "token": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["admins", "consensus_threshold", "membership_fee", "token"],
+      "additionalProperties": false
+    },
+    "admin_add": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["admin"],
+      "additionalProperties": false
+    },
+    "admin_rem": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["admin"],
+      "additionalProperties": false
+    },
+    "pset": {
+      "type": "object",
+      "properties": {
+        "pauser": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["pauser"],
+      "additionalProperties": false
+    },
+    "prev": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["caller"],
+      "additionalProperties": false
+    },
+    "threshold": {
+      "type": "object",
+      "properties": {
+        "old_threshold": {
+          "type": "integer"
+        },
+        "new_threshold": {
+          "type": "integer"
+        }
+      },
+      "required": ["old_threshold", "new_threshold"],
+      "additionalProperties": false
+    },
+    "pol_prop": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        },
+        "execution_time": {
+          "type": "integer"
+        }
+      },
+      "required": ["caller", "execution_time"],
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "old_policy": {
+          "type": "object",
+          "properties": {
+            "min_membership_duration": {"type": "integer"},
+            "membership_contribution": {"type": "integer"},
+            "max_loan_duration": {"type": "integer"},
+            "min_interest_rate": {"type": "integer"},
+            "max_interest_rate": {"type": "integer"},
+            "cooldown_period": {"type": "integer"},
+            "max_loan_to_treasury_ratio": {"type": "integer"},
+            "default_grace_period": {"type": "integer"},
+            "default_penalty_bps": {"type": "integer"},
+            "editing_period": {"type": "integer"},
+            "voting_period": {"type": "integer"},
+            "treasury_threshold": {"type": "integer"},
+            "quorum_bps": {"type": "integer"}
+          },
+          "required": [
+            "min_membership_duration",
+            "membership_contribution",
+            "max_loan_duration",
+            "min_interest_rate",
+            "max_interest_rate",
+            "cooldown_period",
+            "max_loan_to_treasury_ratio",
+            "default_grace_period",
+            "default_penalty_bps",
+            "editing_period",
+            "voting_period",
+            "treasury_threshold",
+            "quorum_bps"
+          ],
+          "additionalProperties": false
+        },
+        "new_policy": {
+          "type": "object",
+          "properties": {
+            "min_membership_duration": {"type": "integer"},
+            "membership_contribution": {"type": "integer"},
+            "max_loan_duration": {"type": "integer"},
+            "min_interest_rate": {"type": "integer"},
+            "max_interest_rate": {"type": "integer"},
+            "cooldown_period": {"type": "integer"},
+            "max_loan_to_treasury_ratio": {"type": "integer"},
+            "default_grace_period": {"type": "integer"},
+            "default_penalty_bps": {"type": "integer"},
+            "editing_period": {"type": "integer"},
+            "voting_period": {"type": "integer"},
+            "treasury_threshold": {"type": "integer"},
+            "quorum_bps": {"type": "integer"}
+          },
+          "required": [
+            "min_membership_duration",
+            "membership_contribution",
+            "max_loan_duration",
+            "min_interest_rate",
+            "max_interest_rate",
+            "cooldown_period",
+            "max_loan_to_treasury_ratio",
+            "default_grace_period",
+            "default_penalty_bps",
+            "editing_period",
+            "voting_period",
+            "treasury_threshold",
+            "quorum_bps"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": ["old_policy", "new_policy"],
+      "additionalProperties": false
+    },
+    "pol_canc": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["caller"],
+      "additionalProperties": false
+    },
+    "paused": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["caller"],
+      "additionalProperties": false
+    },
+    "unpaused": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["caller"],
+      "additionalProperties": false
+    },
+    "tok_prop": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        },
+        "token": {
+          "type": "string",
+          "format": "address"
+        },
+        "execution_time": {
+          "type": "integer"
+        }
+      },
+      "required": ["caller", "token", "execution_time"],
+      "additionalProperties": false
+    },
+    "tok_add": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        },
+        "token": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["caller", "token"],
+      "additionalProperties": false
+    },
+    "tok_rem": {
+      "type": "object",
+      "properties": {
+        "caller": {
+          "type": "string",
+          "format": "address"
+        },
+        "token": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["caller", "token"],
+      "additionalProperties": false
+    },
+    "staked": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "string",
+          "format": "address"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "new_stake": {
+          "type": "integer"
+        },
+        "voting_weight": {
+          "type": "integer"
+        }
+      },
+      "required": ["member", "amount", "new_stake", "voting_weight"],
+      "additionalProperties": false
+    },
+    "unstaked": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "string",
+          "format": "address"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "new_stake": {
+          "type": "integer"
+        },
+        "voting_weight": {
+          "type": "integer"
+        }
+      },
+      "required": ["member", "amount", "new_stake", "voting_weight"],
+      "additionalProperties": false
+    },
+    "loan_asst": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "asset": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["id", "asset"],
+      "additionalProperties": false
+    },
+    "loan_req": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "loan_edit": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "prop_canc": {
+      "type": "object",
+      "properties": {
+        "proposal_id": {
+          "type": "integer"
+        },
+        "now": {
+          "type": "integer"
+        }
+      },
+      "required": ["proposal_id", "now"],
+      "additionalProperties": false
+    },
+    "loan_vote": {
+      "type": "object",
+      "properties": {
+        "proposal_id": {
+          "type": "integer"
+        },
+        "voter": {
+          "type": "string",
+          "format": "address"
+        },
+        "support": {
+          "type": "boolean"
+        }
+      },
+      "required": ["proposal_id", "voter", "support"],
+      "additionalProperties": false
+    },
+    "loan_wait": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "loan_rej": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "loan_appr": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "loan_rpy": {
+      "type": "object",
+      "properties": {
+        "loan_id": {
+          "type": "integer"
+        },
+        "borrower": {
+          "type": "string",
+          "format": "address"
+        },
+        "remaining": {
+          "type": "integer"
+        }
+      },
+      "required": ["loan_id", "borrower", "remaining"],
+      "additionalProperties": false
+    },
+    "loan_exp": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "loan_dflt": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "interest": {
+      "type": "object",
+      "properties": {
+        "interest": {
+          "type": "integer"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      },
+      "required": ["interest", "active"],
+      "additionalProperties": false
+    },
+    "tre_asset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "asset": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["id", "asset"],
+      "additionalProperties": false
+    },
+    "tre_prop": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "tre_vote": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "tre_wait": {
+      "type": "object",
+      "properties": {
+        "proposal_id": {
+          "type": "integer"
+        },
+        "proposal_amount": {
+          "type": "integer"
+        }
+      },
+      "required": ["proposal_id", "proposal_amount"],
+      "additionalProperties": false
+    },
+    "tre_rej": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "tre_exec": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "joined": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "string",
+          "format": "address"
+        },
+        "fee": {
+          "type": "integer"
+        }
+      },
+      "required": ["member", "fee"],
+      "additionalProperties": false
+    },
+    "exited": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "string",
+          "format": "address"
+        },
+        "share": {
+          "type": "integer"
+        }
+      },
+      "required": ["member", "share"],
+      "additionalProperties": false
+    },
+    "claimed": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "string",
+          "format": "address"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "timestamp": {
+          "type": "integer"
+        }
+      },
+      "required": ["member", "amount", "timestamp"],
+      "additionalProperties": false
+    },
+    "delegate": {
+      "type": "object",
+      "properties": {
+        "delegator": {
+          "type": "string",
+          "format": "address"
+        },
+        "delegatee": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["delegator", "delegatee"],
+      "additionalProperties": false
+    },
+    "name_rel": {
+      "type": "object",
+      "properties": {
+        "old": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "owner": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["old", "owner"],
+      "additionalProperties": false
+    },
+    "name_reg": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "owner": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["name", "owner"],
+      "additionalProperties": false
+    },
+    "committed": {
+      "type": "object",
+      "properties": {
+        "proposal_id": {
+          "type": "integer"
+        },
+        "voter": {
+          "type": "string",
+          "format": "address"
+        }
+      },
+      "required": ["proposal_id", "voter"],
+      "additionalProperties": false
+    },
+    "revealed": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "TtlBumped": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  }
+}

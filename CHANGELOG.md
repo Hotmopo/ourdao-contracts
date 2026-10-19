@@ -6,6 +6,12 @@ All notable changes to `ourdao-contracts` are documented here. The format follow
 
 ### Changed
 - `exit_dao` / `calculate_exit_share` are now O(1): a maintained `ActiveContributions` total replaces the per-member scan (#353).
+- `pause` and `unpause` events now include the caller (#346).
+- `set_consensus_threshold` and `execute_policy_update` events now emit old and new values (#347).
+- `staked` and `unstaked` events now include the resulting voting weight (#348).
+
+### Added
+- `docs/events.schema.json`: machine-readable event schema covering all contract event topics (#344).
 - `treasury::tally` and `loans::vote_on_loan_proposal` read the active-member count (and policy/threshold) once per call (#355).
 - `bench-cost.sh` now runs a real `test_budget_scaling` benchmark that also covers `request_loan_in_asset`, `repay_loan_in_asset` and `propose_withdrawal_in_asset` (#354).
 

@@ -158,10 +158,11 @@ pub fn set_consensus_threshold(env: &Env, caller: Address, threshold: u32) -> Re
     if threshold == 0 || threshold as i128 > BASIS_POINTS {
         return Err(Error::InvalidThreshold);
     }
+    let old_threshold = storage::get_threshold(env);
     storage::set_threshold(env, threshold);
     extend_instance(env);
     env.events()
-        .publish((symbol_short!("threshold"),), threshold);
+        .publish((symbol_short!("threshold"),), (old_threshold, threshold));
     Ok(())
 }
 
@@ -191,10 +192,12 @@ pub fn execute_policy_update(env: &Env, caller: Address) -> Result<(), Error> {
     if now < update.execution_time {
         return Err(Error::TimelockNotExpired);
     }
+    let old_policy = storage::get_policy(env);
     storage::set_policy(env, &update.policy);
     storage::remove_pending_policy_update(env);
     extend_instance(env);
-    env.events().publish((symbol_short!("policy"),), ());
+    env.events()
+        .publish((symbol_short!("policy"),), (old_policy, update.policy));
     Ok(())
 }
 
@@ -229,7 +232,7 @@ pub fn pause(env: &Env, caller: Address) -> Result<(), Error> {
     }
     storage::set_paused(env, true);
     extend_instance(env);
-    env.events().publish((symbol_short!("paused"),), ());
+    env.events().publish((symbol_short!("paused"),), (caller));
     Ok(())
 }
 
@@ -241,7 +244,7 @@ pub fn unpause(env: &Env, caller: Address) -> Result<(), Error> {
     }
     storage::set_paused(env, false);
     extend_instance(env);
-    env.events().publish((symbol_short!("unpaused"),), ());
+    env.events().publish((symbol_short!("unpaused"),), (caller));
     Ok(())
 }
 
