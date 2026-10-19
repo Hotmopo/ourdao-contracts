@@ -87,6 +87,21 @@ These apply on top of the general rules above, because this is a smart contract:
 - **Don't add a second id counter.** A loan reuses its originating proposal's id (`loan.id == proposal.id`) on purpose — independent counters silently diverge as soon as any proposal is rejected. This invariant is covered by a regression test; if your change touches it, that test should tell you.
 - **Authorization changes need explicit justification.** If your PR adds, removes, or relaxes a `require_auth` call, the description must say exactly who can now do what they couldn't before, and why that's correct.
 
+## Events
+
+Emitted events are the primary source of on-chain state history for the off-chain indexer (`ourdao-backend`). All events use the `soroban_sdk::symbol_short!("...")` macro with a 3–4 character lowercase alphanumeric topic.
+
+**Naming style:**
+- Abbreviated actions: `prop_canc` (proposal cancel), `pol_prop` (policy propose), `tok_add` (token add)
+- Entity prefixes: `admin_add`, `admin_rem`, `loan_req`, `name_reg`, `staked`, `unstaked`
+- Descriptive singles: `joined`, `exited`, `claimed`, `interest`
+- Shared symbols: identical names (e.g., `prop_canc`) are used across modules when the payload `(proposal_id, now)` is the same
+
+**Requirements:**
+- Every state-changing entrypoint must emit an event. A state change with no event is invisible to clients.
+- If you add a new event, document it in the PR description so the indexer can be updated in lockstep.
+- **Do not rename existing event topics** — they are part of the public ABI. New events should follow the convention above.
+
 ## Releases and Verification
 
 Releases are published automatically when a tag is pushed (e.g., `v1.0.0`). Each release includes:
